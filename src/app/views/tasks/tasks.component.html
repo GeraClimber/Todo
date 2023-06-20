@@ -27,33 +27,33 @@
       <table class="table align-items-center mb-0">
         <thead>
         <tr>
-          <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
+          <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">#</th>
           <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Название</th>
           <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Категории</th>
           <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Приоритет</th>
-          <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Статус</th>
           <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Дата</th>
+          <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Статус</th>
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let task of tasks">
+        <tr *ngFor="let task of tasks; let i = index">
           <td class="align-middle text-center text-sm">
-            <span class="text-xs font-weight-bold">{{task.id}}</span>
+            <span class="text-xs font-weight-bold">{{i+1}}</span>
           </td>
           <td class="align-middle text-center text-sm">
             <span class="text-xs font-weight-bold">{{task.title}}</span>
           </td>
           <td class="align-middle text-center text-sm">
-            <span class="text-xs font-weight-bold"></span>
+            <span class="text-xs font-weight-bold">{{task.category ? task.category.title : "Без категории"}}</span>
           </td>
           <td class="align-middle text-center text-sm">
-            <span class="text-xs font-weight-bold"></span>
+            <span class="text-xs font-weight-bold">{{task.priority ? task.priority.title : "Без приоритета"}}</span>
           </td>
           <td class="align-middle text-center text-sm">
-            <span class="text-xs font-weight-bold"></span>
+            <span class="text-xs font-weight-bold">{{task.date ? (task.date | date :'medium') : "Без даты"}}</span>
           </td>
           <td class="align-middle text-center text-sm">
-            <span class="text-xs font-weight-bold"></span>
+            <div class="form-check form-check-info ps-0"><input class="form-check-input" type="checkbox" value="" [checked]="task.completed"></div>
           </td>
         </tr>
         </tbody>

@@ -9,9 +9,9 @@
   <hr class="horizontal light mt-0 mb-2">
   <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
     <ul class="navbar-nav">
-      <li class="nav-item" *ngFor="let category of categories" (click)="showTasksByCategory(category)">
+      <li class="nav-item pointer" *ngFor="let category of categories" (click)="showTasksByCategory(category)">
 <!--        <a class="nav-link text-white active bg-gradient-primary">-->
-        <a class="nav-link text-white">
+        <a class="nav-link text-white" [ngClass]= "{'active': category === selectedCategory, 'bg-gradient-primary': category === selectedCategory}">
           <span class="nav-link-text ms-1">{{category.title}}</span>
         </a>
       </li>
