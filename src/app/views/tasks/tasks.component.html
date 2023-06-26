@@ -36,24 +36,30 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let task of tasks; let i = index">
+        <tr *ngFor="let task of tasks; let i = index" [class.completed]="task.completed">
           <td class="align-middle text-center text-sm">
             <span class="text-xs font-weight-bold">{{i+1}}</span>
           </td>
           <td class="align-middle text-center text-sm">
             <span class="text-xs font-weight-bold">{{task.title}}</span>
           </td>
-          <td class="align-middle text-center text-sm">
+          <td [class.novalue]="task.category == null" class="align-middle text-center text-sm">
             <span class="text-xs font-weight-bold">{{task.category ? task.category.title : "Без категории"}}</span>
           </td>
-          <td class="align-middle text-center text-sm">
+          <td [class.novalue]="task.priority == null" class="align-middle text-center text-sm">
             <span class="text-xs font-weight-bold">{{task.priority ? task.priority.title : "Без приоритета"}}</span>
           </td>
-          <td class="align-middle text-center text-sm">
+          <td [class.novalue]="task.date == null" class="align-middle text-center text-sm">
             <span class="text-xs font-weight-bold">{{task.date ? (task.date | date :'medium') : "Без даты"}}</span>
           </td>
           <td class="align-middle text-center text-sm">
-            <div class="form-check form-check-info ps-0"><input class="form-check-input" type="checkbox" value="" [checked]="task.completed"></div>
+            <div class="form-check form-check-info ps-0">
+              <input class="form-check-input"
+                     type="checkbox"
+                     value=""
+                     [checked]="task.completed"
+                     (click)="toggleTaskCompleted(task)">
+            </div>
           </td>
         </tr>
         </tbody>
