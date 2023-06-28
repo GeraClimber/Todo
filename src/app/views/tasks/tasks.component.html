@@ -8,61 +8,61 @@
           <span class="font-weight-bold ms-1">30 done</span> this month
         </p>
       </div>
-      <div class="col-lg-6 col-5 my-auto text-end">
-        <div class="dropdown float-lg-end pe-4">
-          <a class="cursor-pointer" id="dropdownTable" data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="fa fa-ellipsis-v text-secondary"></i>
-          </a>
-          <ul class="dropdown-menu px-2 py-3 ms-sm-n4 ms-n5" aria-labelledby="dropdownTable">
-            <li><a class="dropdown-item border-radius-md" href="javascript:;">Action</a></li>
-            <li><a class="dropdown-item border-radius-md" href="javascript:;">Another action</a></li>
-            <li><a class="dropdown-item border-radius-md" href="javascript:;">Something else here</a></li>
-          </ul>
-        </div>
-      </div>
     </div>
   </div>
   <div class="card-body px-0 pb-2">
+
     <div class="table-responsive">
-      <table class="table align-items-center mb-0">
-        <thead>
-        <tr>
-          <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">#</th>
-          <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Название</th>
-          <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Категории</th>
-          <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Приоритет</th>
-          <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Дата</th>
-          <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Статус</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let task of tasks; let i = index" [class.completed]="task.completed">
-          <td class="align-middle text-center text-sm">
-            <span class="text-xs font-weight-bold">{{i+1}}</span>
+      <table mat-table [dataSource]="dataSource">
+
+        <!-- Цвет приоритета -->
+        <ng-container matColumnDef="color">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let task" [style.background-color]="getPriorityColor(task)"></td>
+        </ng-container>
+
+        <!-- Нумерация -->
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let index = index;">{{index + 1}}</td>
+        </ng-container>
+
+        <!-- Название задачи -->
+        <ng-container matColumnDef="title">
+          <th mat-header-cell *matHeaderCellDef>Название</th>
+          <td mat-cell *matCellDef="let task" [class.completed]="task.completed">{{task.title}}</td>
+        </ng-container>
+
+        <!-- Дата выполнения -->
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef>Срок</th>
+          <td mat-cell *matCellDef="let task" [ngClass]="{'completed': task.completed, 'nodate': task.date == null}">
+            {{task.date | date:'medium'}}
           </td>
-          <td class="align-middle text-center text-sm">
-            <span class="text-xs font-weight-bold">{{task.title}}</span>
+        </ng-container>
+
+        <!-- Приоритет -->
+        <ng-container matColumnDef="priority">
+          <th mat-header-cell *matHeaderCellDef>Приоритет</th>
+          <td mat-cell *matCellDef="let task" [ngClass]="{'completed': task.completed, 'nopriority': task.priority == null}">
+            {{task.priority ? task.priority.title : "Без приоритета"}}
           </td>
-          <td [class.novalue]="task.category == null" class="align-middle text-center text-sm">
-            <span class="text-xs font-weight-bold">{{task.category ? task.category.title : "Без категории"}}</span>
+        </ng-container>
+
+        <!-- Категория -->
+        <ng-container matColumnDef="category">
+          <th mat-header-cell *matHeaderCellDef>Категория</th>
+          <td mat-cell *matCellDef="let task" [ngClass]="{'completed': task.completed, 'nocategory': task.category == null}">
+            {{task.category ? task.category.title : "Без категории"}}
           </td>
-          <td [class.novalue]="task.priority == null" class="align-middle text-center text-sm">
-            <span class="text-xs font-weight-bold">{{task.priority ? task.priority.title : "Без приоритета"}}</span>
-          </td>
-          <td [class.novalue]="task.date == null" class="align-middle text-center text-sm">
-            <span class="text-xs font-weight-bold">{{task.date ? (task.date | date :'medium') : "Без даты"}}</span>
-          </td>
-          <td class="align-middle text-center text-sm">
-            <div class="form-check form-check-info ps-0">
-              <input class="form-check-input"
-                     type="checkbox"
-                     value=""
-                     [checked]="task.completed"
-                     (click)="toggleTaskCompleted(task)">
-            </div>
-          </td>
-        </tr>
-        </tbody>
+        </ng-container>
+
+        <!-- Заголовок таблицы -->
+        <tr mat-header-row *matHeaderRowDef="displayedColumns;"></tr>
+        <!-- Строки таблицы -->
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+
       </table>
     </div>
   </div>

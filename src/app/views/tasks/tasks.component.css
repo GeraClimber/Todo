@@ -6,3 +6,7 @@
 .novalue {
   color: #b7b7b7;
 }
+
+.nodate, .nopriority, .nocategory {
+  color: #b7b7b7;
+}
