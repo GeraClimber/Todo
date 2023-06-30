@@ -13,7 +13,7 @@
   <div class="card-body px-0 pb-2">
 
     <div class="table-responsive">
-      <table mat-table [dataSource]="dataSource">
+      <table mat-table [dataSource]="dataSource" matSort>
 
         <!-- Цвет приоритета -->
         <ng-container matColumnDef="color">
@@ -29,13 +29,13 @@
 
         <!-- Название задачи -->
         <ng-container matColumnDef="title">
-          <th mat-header-cell *matHeaderCellDef>Название</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header >Название</th>
           <td class="col-title" mat-cell *matCellDef="let task" [class.completed]="task.completed">{{task.title}}</td>
         </ng-container>
 
         <!-- Дата выполнения -->
         <ng-container matColumnDef="date">
-          <th mat-header-cell *matHeaderCellDef>Срок</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header >Срок</th>
           <td class="col-date" mat-cell *matCellDef="let task" [ngClass]="{'completed': task.completed, 'nodate': task.date == null}">
             {{task.date | date:'medium'}}
           </td>
@@ -43,7 +43,7 @@
 
         <!-- Приоритет -->
         <ng-container matColumnDef="priority">
-          <th mat-header-cell *matHeaderCellDef>Приоритет</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header >Приоритет</th>
           <td class="col-priority" mat-cell *matCellDef="let task" [ngClass]="{'completed': task.completed, 'nopriority': task.priority == null}">
             {{task.priority ? task.priority.title : "Без приоритета"}}
           </td>
@@ -51,7 +51,7 @@
 
         <!-- Категория -->
         <ng-container matColumnDef="category">
-          <th mat-header-cell *matHeaderCellDef>Категория</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header >Категория</th>
           <td class="col-category" mat-cell *matCellDef="let task" [ngClass]="{'completed': task.completed, 'nocategory': task.category == null}">
             {{task.category ? task.category.title : "Без категории"}}
           </td>
@@ -61,9 +61,8 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns;"></tr>
         <!-- Строки таблицы -->
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-
       </table>
+      <mat-paginator showFirstLastButtons [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
     </div>
   </div>
 </div>
