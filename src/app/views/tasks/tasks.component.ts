@@ -3,6 +3,8 @@ import {Task} from "../../model/Task";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
+import {MatDialog} from "@angular/material/dialog";
+import {EditTaskDialogComponent} from "../../dialog/edit-task-dialog/edit-task-dialog.component";
 
 @Component({
   selector: 'app-tasks',
@@ -29,7 +31,9 @@ export class TasksComponent implements AfterViewInit {
   dataSource: MatTableDataSource<Task>;
 
 
-  constructor() {
+  constructor(
+    private dialog: MatDialog
+  ) {
     this.dataSource = new MatTableDataSource();
   }
 
@@ -80,8 +84,13 @@ export class TasksComponent implements AfterViewInit {
     this.dataSource.sort = this.sort;
   }
 
-  onClickTask(task: Task) {
-    this.updateTask.emit(task);
+  openEditTaskDialog(task: Task): void {
+    //this.updateTask.emit(task);
+    const dialogRef = this.dialog.open(EditTaskDialogComponent, {data: [task, 'Редактирование задачи'], autoFocus: false});
+
+    dialogRef.afterClosed().subscribe(result =>{
+
+    });
   }
 
 }

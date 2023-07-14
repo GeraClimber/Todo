@@ -34,7 +34,7 @@
           <td class="col-title pointer" mat-cell
               *matCellDef="let task"
               [class.completed]="task.completed"
-              (click)="onClickTask(task)">{{task.title}}</td>
+              (click)="openEditTaskDialog(task)">{{task.title}}</td>
         </ng-container>
 
         <!-- Дата выполнения -->
