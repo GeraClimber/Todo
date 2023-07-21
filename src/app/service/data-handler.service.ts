@@ -33,6 +33,10 @@ export class DataHandlerService {
     return this.categoryDaoArray.getAll();
   }
 
+  updateTask(task: Task): Observable<Task> {
+    return this.taskDaoArray.update(task);
+  }
+
   fillTasks() {
     this.tasksSubject.next(TestData.tasks);
   }

@@ -16,16 +16,28 @@ export class EditTaskDialogComponent implements OnInit {
     ) {
   }
 
-  private dialogTitle: string = "";
-  task: Task | null = null;
+  dialogTitle: string = "";
+  task: Task = this.data[0];
+
+  tmpTitle: string="";
 
 
   ngOnInit() {
-    this.task = this.data[0];
-    this.dialogTitle = this.data[1];
 
-    console.log(this.task);
-    console.log(this.dialogTitle);
+    this.dialogTitle = this.data[1];
+    this.tmpTitle = this.task.title;
   }
+
+  onConfirm(): void {
+
+      this.task.title = this.tmpTitle;
+      this.dialogRef.close(this.task);
+  }
+
+  onCancel(): void {
+
+    this.dialogRef.close(null);
+  }
+
 
 }

@@ -89,7 +89,10 @@ export class TasksComponent implements AfterViewInit {
     const dialogRef = this.dialog.open(EditTaskDialogComponent, {data: [task, 'Редактирование задачи'], autoFocus: false});
 
     dialogRef.afterClosed().subscribe(result =>{
-
+      if (result as Task) {
+        this.updateTask.emit(task);
+        return;
+      }
     });
   }
 
