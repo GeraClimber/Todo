@@ -27,6 +27,9 @@ export class TasksComponent implements AfterViewInit {
   @Output()
   updateTask = new EventEmitter<Task>();
 
+  @Output()
+  deleteTask = new EventEmitter<Task>();
+
   displayedColumns: string[] = ['color', 'id', 'title', 'date', 'priority', 'category'];
   dataSource: MatTableDataSource<Task>;
 
@@ -89,10 +92,17 @@ export class TasksComponent implements AfterViewInit {
     const dialogRef = this.dialog.open(EditTaskDialogComponent, {data: [task, 'Редактирование задачи'], autoFocus: false});
 
     dialogRef.afterClosed().subscribe(result =>{
+
+      if(result === 'delete') {
+        this.deleteTask.emit(task);
+        return;
+      }
+
       if (result as Task) {
         this.updateTask.emit(task);
         return;
       }
+
     });
   }
 

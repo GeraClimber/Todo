@@ -43,6 +43,10 @@ export class DataHandlerService {
     return this.taskDaoArray.update(task);
   }
 
+  deleteTask(id: number): Observable<Task> {
+    return this.taskDaoArray.delete(id);
+  }
+
   fillTasks() {
     this.tasksSubject.next(TestData.tasks);
   }
