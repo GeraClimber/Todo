@@ -40,16 +40,43 @@
   </mat-form-field>
 </mat-dialog-content>
 
-<mat-dialog-actions>
-  <button
-    mat-raised-button color="primary"
-    (click)="onConfirm()" [disabled]="inputTitle.value.trim().length ==0">
-      Сохранить
-  </button>
-  <button mat-raised-button (click)="onCancel()">
-    Отмена
-  </button>
+<mat-dialog-actions style="padding: 20px 24px 20px 24px;">
 
-  <button mat-raised-button color="accent" (click)="delete()">Удалить задачу</button>
+  <div class="col-md-5 col-12">
+    <button
+      mat-raised-button color="primary"
+      (click)="onConfirm()" [disabled]="inputTitle.value.trim().length ==0">
+      Сохранить
+    </button>
+    <button mat-raised-button (click)="onCancel()">
+      Отмена
+    </button>
+  </div>
+
+  <div class="col-md-7 col-12 justify-content-end">
+    <button
+      mat-raised-button class="btn-success btn-mb-0 btn-bg-color-green color-white"
+      *ngIf="!task.completed"
+      (click)="complete()">
+      Завершить задачу
+    </button>
+
+    <button
+      mat-button class="btn-success btn-mb-0 btn-bg-color-green color-white"
+      *ngIf="task.completed"
+      (click)="activate()">
+      Активировать
+    </button>
+
+    <button
+      mat-raised-button
+      color="accent"
+      (click)="delete()">
+      Удалить задачу
+    </button>
+  </div>
+
+
+
 
 </mat-dialog-actions>
