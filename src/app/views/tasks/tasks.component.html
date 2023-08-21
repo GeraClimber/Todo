@@ -41,7 +41,7 @@
         <ng-container matColumnDef="date">
           <th mat-header-cell *matHeaderCellDef mat-sort-header >Срок</th>
           <td class="col-date" mat-cell *matCellDef="let task" [ngClass]="{'completed': task.completed, 'nodate': task.date == null}">
-            {{task.date | date:'medium'}}
+            {{task.date | taskDate}}
           </td>
         </ng-container>
 

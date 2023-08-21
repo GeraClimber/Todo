@@ -7,7 +7,7 @@ export class Task {
   completed: boolean;
   category?: Category;
   priority?: Priority;
-  date?: Date;
+  date?: Date |null;
 
   constructor(id: number, title: string, completed: boolean, category?: Category, priority?: Priority, date?: Date) {
     this.id = id;
