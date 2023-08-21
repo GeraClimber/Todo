@@ -5,6 +5,7 @@ import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import {MatDialog} from "@angular/material/dialog";
 import {EditTaskDialogComponent} from "../../dialog/edit-task-dialog/edit-task-dialog.component";
+import {ConfirmDialogComponent} from "../../dialog/confirm-dialog/confirm-dialog.component";
 
 @Component({
   selector: 'app-tasks',
@@ -30,7 +31,7 @@ export class TasksComponent implements AfterViewInit {
   @Output()
   deleteTask = new EventEmitter<Task>();
 
-  displayedColumns: string[] = ['color', 'id', 'title', 'date', 'priority', 'category'];
+  displayedColumns: string[] = ['color', 'id', 'title', 'date', 'priority', 'category', 'operations', 'select'];
   dataSource: MatTableDataSource<Task>;
 
 
@@ -45,9 +46,9 @@ export class TasksComponent implements AfterViewInit {
     this.addTableObjects();
   }
 
-  toggleTaskCompleted(task: Task) {
-    task.completed = !task.completed;
-  }
+  // toggleTaskCompleted(task: Task) {
+  //   task.completed = !task.completed;
+  // }
 
   getPriorityColor(task: Task): string {
 
@@ -116,6 +117,23 @@ export class TasksComponent implements AfterViewInit {
       }
 
     });
+  }
+
+  openDeleteDialog(task: Task) {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      maxWidth: '500px',
+      data: {dialogTitle: 'Подтвердите действие', message: `Вы действительно хотите удалить задачу: "${task.title}"?`, autoFocus: false }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        this.deleteTask.emit(task);
+      }
+    });
+  }
+
+  onToggleStatus(task: Task) {
+    task.completed = !task.completed;
+    this.updateTask.emit(task);
   }
 
 }
